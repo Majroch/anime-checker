@@ -26,20 +26,24 @@ where:
 			with open(filename, "w") as file:
 				if not only_create:
 					file.write("# Log File\n")
-					file.write("log_file = " + os.getcwd() + "/logs/main.log\n")
+					file.write("log_file = " + os.path.dirname(os.path.realpath(__file__)) + "/../../logs/main.log\n")
 
 					file.write("\n# Url File\n")
-					file.write("url_file = " + os.getcwd() + "/urls.txt\n")
+					file.write("url_file = " + os.path.dirname(os.path.realpath(__file__)) + "/../../urls.txt\n")
 
 					file.write("\n# WebDav\n")
 					file.write("webdav_login = " + "hackme\n")
 					file.write("webdav_password = " + "hackme\n")
 					file.write("webdav_calendar = " + "https://example.com/remote.php/dav/calendars/user/calendar/\n")
-					config['log_file'] = os.getcwd() + "/logs/main.log"
-					config['url_file'] = os.getcwd() + "/urls.txt"
+
+					file.write("\n# Current Directory\n")
+					file.write("current_dir = " + os.path.dirname(os.path.realpath(__file__)) + "/../../\n")
+					config['log_file'] = os.path.dirname(os.path.realpath(__file__)) + "/../../logs/main.log"
+					config['url_file'] = os.path.dirname(os.path.realpath(__file__)) + "/../../urls.txt"
 					config['webdav_login'] = "hackme"
 					config['webdav_password'] = "hackme"
 					config['webdav_calendar'] = "https://example.com/remote.php/dav/calendars/user/calendar/"
+					config['current_dir'] = os.path.dirname(os.path.realpath(__file__)) + "/../../"
 				else:
 					file.write("")
 

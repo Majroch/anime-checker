@@ -16,14 +16,14 @@ class Site:
         return beauty
 
     def getProjectDir(self):
-        return os.getcwd() + "/"
+        return self.config.get("current_dir")
     
     def getLastEp(self, url: str) -> str:
-        if not os.path.isfile("./tmp/anime_state.cfg"):
-            anime_state = Config("./tmp/anime_state.cfg", True)
+        if not os.path.isfile(self.getProjectDir() + "tmp/anime_state.cfg"):
+            anime_state = Config(self.getProjectDir() + "tmp/anime_state.cfg", True)
             self.logger.warning("Cannot find file of last state! Creating.")
         else:
-            anime_state = Config("./tmp/anime_state.cfg", True)
+            anime_state = Config(self.getProjectDir() + "tmp/anime_state.cfg", True)
         
         if anime_state.has(url):
             return anime_state.get(url)
@@ -31,11 +31,11 @@ class Site:
             return ""
     
     def setLastEp(self, url: str, ep: str):
-        if not os.path.isfile("./tmp/anime_state.cfg"):
-            anime_state = Config("./tmp/anime_state.cfg", True)
+        if not os.path.isfile(self.getProjectDir() + "tmp/anime_state.cfg"):
+            anime_state = Config(self.getProjectDir() + "tmp/anime_state.cfg", True)
             self.logger.warning("Cannot find file of last state! Creating.")
         else:
-            anime_state = Config("./tmp/anime_state.cfg", True)
+            anime_state = Config(self.getProjectDir() + "tmp/anime_state.cfg", True)
         
         if anime_state.has(url):
             anime_state.update(url, ep)

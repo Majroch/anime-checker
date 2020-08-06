@@ -3,16 +3,23 @@ from modules.Config import Config
 from modules.Logger import Logger
 import importlib, os, time
 
-config = Config("main.cfg")
+current_dir = os.path.dirname(os.path.realpath(__file__)) + "/"
+
+config = Config(current_dir + "main.cfg")
+if not config.has("current_dir"):
+    config.write("current_dir", current_dir)
+else:
+    config.update("current_dir", current_dir)
+
 logger = Logger(config)
 
-logger.info("Checking `./tmp/` folder")
-if not os.path.isdir("./tmp/"):
-    logger.warning("Cannot find `./tmp/` directory. Creating one.")
+logger.info("Checking `"+current_dir+"tmp/` folder")
+if not os.path.isdir(current_dir + "tmp/"):
+    logger.warning("Cannot find `"+current_dir+"tmp/` directory. Creating one.")
     try:
-        os.mkdir("./tmp/")
+        os.mkdir(current_dir+"tmp/")
     except Exception as e:
-        msg = "Cannot create Directory `./tmp/`. Error msg: " + str(e)
+        msg = "Cannot create Directory `"+current_dir+"tmp/`. Error msg: " + str(e)
         logger.fatal(msg)
         print(msg)
         exit()
