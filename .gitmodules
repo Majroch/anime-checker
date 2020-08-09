@@ -1,0 +1,3 @@
+[submodule "modules/anime-downloader"]
+	path = modules/anime-downloader
+	url = https://github.com/Majroch/anime-downloader.git
