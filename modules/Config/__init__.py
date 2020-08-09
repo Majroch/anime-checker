@@ -30,6 +30,7 @@ where:
 
 					file.write("\n# Url File\n")
 					file.write("url_file = " + os.path.dirname(os.path.realpath(__file__)) + "/../../urls.txt\n")
+					file.write("anime_state_cfg = " + os.path.dirname(os.path.realpath(__file__)) + "/../../tmp/anime_state.cfg\n")
 
 					file.write("\n# WebDav\n")
 					file.write("webdav_login = " + "hackme\n")
@@ -44,6 +45,7 @@ where:
 					config['webdav_password'] = "hackme"
 					config['webdav_calendar'] = "https://example.com/remote.php/dav/calendars/user/calendar/"
 					config['current_dir'] = os.path.dirname(os.path.realpath(__file__)) + "/../../"
+					config['anime_state_cfg'] = os.path.dirname(os.path.realpath(__file__)) + "/../../tmp/anime_state.cfg"
 				else:
 					file.write("")
 

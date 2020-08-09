@@ -13,6 +13,19 @@ else:
 
 logger = Logger(config)
 
+def download_anime(links: list):
+    logger.info("Trying to load `anime-downloader` package")
+    # try:
+    from modules.anime_downloader.libs.Downloader import Browser
+    logger.success("Done!")
+    logger.info("Trying to download anime")
+    browser = Browser(links)
+    logger.success("Done!")
+    return True
+    # except ImportError:
+    #     logger.warning("Cannot load `anime-downloader` package, ommiting...")
+    #     return False
+
 logger.info("Checking `"+current_dir+"tmp/` folder")
 if not os.path.isdir(current_dir + "tmp/"):
     logger.warning("Cannot find `"+current_dir+"tmp/` directory. Creating one.")
@@ -94,15 +107,18 @@ while True:
                 logger.info(msg)
                 print(msg)
 
-                logger.info("Creating new WebDav event!")
-                event = cdav.createEvent(msg, msg + "\nCheck if this is not an error or something :)")
-                logger.info("Sending event!")
-                cdav.sendEvent(event)
+                # logger.info("Creating new WebDav event!")
+                # event = cdav.createEvent(msg, msg + "\nCheck if this is not an error or something :)")
+                # logger.info("Sending event!")
+                # cdav.sendEvent(event)
+
+                anime_state_cfg = Config(config.get("anime_state_cfg"))
+                download_anime([anime_state_cfg.get(url)])
         else:
             module = None
         
         last_module = module
     
-    logger.info("Sleep for 120s")
-    print("Sleep for 120s")
-    time.sleep(120)
+    logger.info("Sleep for 600s")
+    print("Sleep for 600s")
+    time.sleep(600)

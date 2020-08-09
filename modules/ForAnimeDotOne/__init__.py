@@ -12,7 +12,7 @@ class Site(_Site):
         else:
             episodes = episodes[0]
         last_ep = episodes.findAll("a")
-        last_ep = last_ep[len(last_ep)-1].text
+        last_ep = last_ep[len(last_ep)-1]['href']
         last_ep_config = self.getLastEp(url)
         if last_ep_config == "":
             self.setLastEp(url, last_ep)

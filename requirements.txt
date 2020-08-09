@@ -1,2 +1,6 @@
 vobject
 caldav
+selenium
+geckodriver-autoinstaller
+chromedriver-autoinstaller
+wget
