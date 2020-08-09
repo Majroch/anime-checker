@@ -4,3 +4,4 @@ selenium
 geckodriver-autoinstaller
 chromedriver-autoinstaller
 wget
+bs4
