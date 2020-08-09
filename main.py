@@ -107,10 +107,10 @@ while True:
                 logger.info(msg)
                 print(msg)
 
-                # logger.info("Creating new WebDav event!")
-                # event = cdav.createEvent(msg, msg + "\nCheck if this is not an error or something :)")
-                # logger.info("Sending event!")
-                # cdav.sendEvent(event)
+                logger.info("Creating new WebDav event!")
+                event = cdav.createEvent(msg, msg + "\nCheck if this is not an error or something :)")
+                logger.info("Sending event!")
+                cdav.sendEvent(event)
 
                 anime_state_cfg = Config(config.get("anime_state_cfg"))
                 download_anime([anime_state_cfg.get(url)])
