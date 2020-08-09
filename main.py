@@ -15,16 +15,16 @@ logger = Logger(config)
 
 def download_anime(links: list):
     logger.info("Trying to load `anime-downloader` package")
-    # try:
-    from modules.anime_downloader.libs.Downloader import Browser
-    logger.success("Done!")
-    logger.info("Trying to download anime")
-    browser = Browser(links)
-    logger.success("Done!")
-    return True
-    # except ImportError:
-    #     logger.warning("Cannot load `anime-downloader` package, ommiting...")
-    #     return False
+    try:
+        from modules.anime_downloader.libs.Downloader import Browser
+        logger.success("Done!")
+        logger.info("Trying to download anime")
+        browser = Browser(links, config.get("download_destination")) # pylint: disable=unused-variable
+        logger.success("Done!")
+        return True
+    except ImportError:
+        logger.warning("Cannot load `anime-downloader` package, ommiting...")
+        return False
 
 logger.info("Checking `"+current_dir+"tmp/` folder")
 if not os.path.isdir(current_dir + "tmp/"):
