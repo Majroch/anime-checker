@@ -23,4 +23,14 @@ class Site(_Site):
             self.setLastEp(url, last_ep)
             return True
         else:
-            return False
+            last_date_config = self.getLastEp(last_ep)
+            last_date = episodes.findAll("td", {"class": "center"})
+            last_date = last_date[len(last_date)-1].text
+            if last_date_config == "":
+                self.setLastEp(last_ep, last_date)
+                return False
+            elif last_date_config != last_date:
+                self.setLastEp(last_ep, last_date)
+                return True
+            else:
+                return False
