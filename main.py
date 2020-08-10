@@ -22,8 +22,8 @@ def download_anime(links: list):
         browser = Browser(links, config.get("download_destination")) # pylint: disable=unused-variable
         logger.success("Done!")
         return True
-    except ImportError:
-        logger.warning("Cannot load `anime-downloader` package, ommiting...")
+    except ImportError as e:
+        logger.warning("Cannot load `anime-downloader` package, ommiting... Msg: " + str(e))
         return False
 
 logger.info("Checking `"+current_dir+"tmp/` folder")
