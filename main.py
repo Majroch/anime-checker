@@ -82,7 +82,10 @@ for url in urls:
 
 for key in mods:
     logger.info("Loading: " + key + " module")
-    modules[key] = importlib.import_module("modules." + key)
+    try:
+        modules[key] = importlib.import_module("modules." + key)
+    except ImportError:
+        logger.warning("Cannot find module: " + key)
 
 logger.success("Done!")
 
@@ -91,33 +94,31 @@ while True:
     last_module = None
     for url in urls:
         module = identifyUrl(url)
-        if module:
-            if not last_module == module:
-                try:
+        try:
+            if module:
+                if not last_module == module:
                     # site = eval("modules." + module + ".Site(config, logger)")
                     site = modules[module].Site(config, logger)
-                except Exception as e:
-                    msg = "Cannot load Site class from " + module + " module! Error msg: " + str(e)
-                    logger.fatal(msg)
+
+                if site.checkForChanges(url):
+                    msg = "New Ep from module `" + module + "`. Url: " + url
+                    logger.info(msg)
                     print(msg)
-                    exit()
 
-            if site.checkForChanges(url):
-                msg = "New Ep from module `" + module + "`. Url: " + url
-                logger.info(msg)
-                print(msg)
+                    logger.info("Creating new WebDav event!")
+                    event = cdav.createEvent(msg, msg + "\nCheck if this is not an error or something :)")
+                    logger.info("Sending event!")
+                    cdav.sendEvent(event)
 
-                logger.info("Creating new WebDav event!")
-                event = cdav.createEvent(msg, msg + "\nCheck if this is not an error or something :)")
-                logger.info("Sending event!")
-                cdav.sendEvent(event)
-
-                anime_state_cfg = Config(config.get("anime_state_cfg"))
-                download_anime([anime_state_cfg.get(url)])
-        else:
-            module = None
+                    anime_state_cfg = Config(config.get("anime_state_cfg"))
+                    download_anime([anime_state_cfg.get(url)])
+            else:
+                module = None
         
-        last_module = module
+            last_module = module
+        except Exception as e:
+            logger.warning("Cannot load module: " + str(e))
+            print("Cannot load module: " + str(e))
     
     logger.info("Sleep for 600s")
     print("Sleep for 600s")
