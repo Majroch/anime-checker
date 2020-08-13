@@ -3,6 +3,7 @@ from urllib.parse import urlparse
 links = (
     ("cda.pl", "Cda"),
     ("4anime.one", "ForAnimeDotOne"),
+    ("4anime.to", "ForAnimeDotTo"),
     ("wbijam.pl", "Wbijam"),
 )
 

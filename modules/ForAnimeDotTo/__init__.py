@@ -4,7 +4,7 @@ from modules.Config import Config
 class Site(_Site):
     def checkForChanges(self, url: str) -> bool:
         bs4 = self.getSite(url)
-        episodes = bs4.find("ul", {"class": "episodios"})
+        episodes = bs4.find("ul", {"class": "episodes"})
         if not episodes:
             return False
         last_ep = episodes.findAll("a")
